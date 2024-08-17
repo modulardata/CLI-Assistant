@@ -1,0 +1,16 @@
+type: code
+files:
+  - name: main.js
+    visible: true
+    highlight_level: NONE
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/40620#comment
+status: Solved
+feedback:
+  message: |-
+    <html>Passed test #1. Your duration: 2003.3942184448242
+    Passed test #2. Your duration: 1002.0503616333008
+    Passed test #3. Your duration: 3004.179672241211</html>
+  time: "Fri, 19 Jul 2024 09:48:43 UTC"
+record: -1
+submission_language: javascript

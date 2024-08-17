@@ -1,0 +1,36 @@
+type: remote_edu
+files:
+  - name: main.js
+    visible: true
+    learner_created: false
+  - name: test/__init__.py
+    visible: false
+    learner_created: false
+  - name: test/tests.py
+    visible: false
+    learner_created: false
+  - name: tests.py
+    visible: false
+    learner_created: false
+  - name: data.txt
+    visible: true
+    learner_created: true
+feedback_link: https://hyperskill.org/learn/step/35498#comment
+check_profile: hyperskill_node_javascript
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #4
+
+    It seems that your program does not print anything to the console!
+
+    Please find below the output of your program during this failed test.
+
+    ---
+
+    Arguments: --remove=audio
+
+    stderr:
+    An error occurred: fullPath is not defined
+  time: "Sat, 17 Aug 2024 16:09:30 UTC"
+record: 2

@@ -1,0 +1,156 @@
+<div class="step-text">
+<p>The URL module in Node.js allows you to handle and manage URL (Uniform Resource Locator) strings. A URL is a string that defines the location of a resource or any form of content on the internet. URLs consist of several components, including the protocol, the domain name, and the path to the resource. The <code class="language-javascript">url</code> module in Node.js allows developers to easily extract information from URLs. In this topic, you'll learn how to utilize the <code class="language-javascript">url</code> module in Node.js.</p>
+<h5 id="url-module">URL module</h5>
+<p>URL is a fundamental component of the World Wide Web that specifies the location of a resource on the web and it consists of several components like the protocol, the pathname, the domain name, etc. It is widely used to identify resources such as web pages, videos, images, and many other files that are available on the internet. You can use the <code class="language-javascript">url</code> module in Node.js to construct or modify URLs. It is a built-in module available in Node.js that allows you to parse and manipulate URLs.</p>
+<p>The <code class="language-javascript">url</code> module in Node.js has different ways to parse and format URLs. It is used to extract the exact information required from a URL, also you can create a URL from its component parts which you'll study in a later section. Before extracting such information and creating URLs, let's start with basic access. To access the <code class="language-javascript">url</code> module in your Node.js application, use the <code class="language-javascript">require</code> method to include the <code class="language-javascript">url</code> module.</p>
+<pre><code class="language-javascript">const url = require("node:url");</code></pre>
+<p>Now, you can access the <code class="language-javascript">url</code> module in your application and use its various classes and functions to work with URLs.</p>
+<h5 id="parsing-urls">Parsing URLs</h5>
+<p><code class="language-javascript">url.parse()</code> is a simple method that you can use to parse a URL. This method accepts a URL string as input and returns an object — precisely a URL object with the properties or attributes of the input URL. Let's look at a specific example:</p>
+<pre><code class="language-javascript">const url = require("url");
+
+const parsedUrl = url.parse("https://de.wikipedia.org/wiki/Wikipedia:Hauptseite");
+
+console.log(parsedUrl);</code></pre>
+<p>This code snippet gives the following output:</p>
+<pre><code class="language-bash">Url {
+  protocol: 'https:',
+  slashes: true,
+  auth: null,
+  host: 'de.wikipedia.org',
+  port: null,
+  hostname: 'de.wikipedia.org',
+  hash: null,
+  search: null,
+  query: null,
+  pathname: '/wiki/Wikipedia:Hauptseite',
+  path: '/wiki/Wikipedia:Hauptseite',
+  href: 'https://de.wikipedia.org/wiki/Wikipedia:Hauptseite'
+}</code></pre>
+<p>Here, the <code class="language-javascript">url</code> module from Node.js is accessed first. The URL string is then defined and parsed using the <code class="language-javascript">url.parse()</code> method. As seen in the output above, the method returns an object with many URL characteristics or components such as protocol, auth, hostname, hash, pathname, etc.</p>
+<p>The <code class="language-javascript">url.parse()</code> method is deprecated and it is advised to use <a href="https://nodejs.org/api/url.html#the-whatwg-url-api" rel="noopener noreferrer nofollow" target="_blank">WHATWG URL API</a>. It is preferable to use the <code class="language-javascript">URL</code> class for parsing and working with URLs instead of <code class="language-javascript">parse()</code>. Here's an equivalent code snippet using the <code class="language-javascript">URL</code> class:</p>
+<pre><code class="language-javascript">const url = require("node:url");
+
+const newUrl = new URL("https://de.wikipedia.org/wiki/Wikipedia:Hauptseite");
+
+console.log(newUrl);</code></pre>
+<p>You will get the following output when using the <code class="language-javascript">URL</code> class:</p>
+<pre><code class="language-bash">URL {
+  href: 'https://de.wikipedia.org/wiki/Wikipedia:Hauptseite',
+  origin: 'https://de.wikipedia.org',
+  protocol: 'https:',
+  username: '',
+  password: '',
+  host: 'de.wikipedia.org',
+  hostname: 'de.wikipedia.org',
+  port: '',
+  pathname: '/wiki/Wikipedia:Hauptseite',
+  search: '',
+  searchParams: URLSearchParams {},
+  hash: ''
+}</code></pre>
+<p>Comparing outputs given by the <code class="language-javascript">url.parse()</code> method and the <code class="language-javascript">URL</code> class, the legacy way to parse a URL also produces the same output as the new WHATWG API.</p>
+<p></p><div class="alert alert-primary">You can also access properties using the dot notation. For example <code class="language-javascript">parsedUrl.protocol</code>, <code class="language-javascript">parsedUrl.slashes</code>, and so on.</div>
+<h5 id="constructing-urls">Constructing URLs</h5>
+<p>You can also construct your own URL using the <code class="language-javascript">url.format()</code> method available in the <code class="language-javascript">url</code> module in Node.js. This method takes an object containing various components of the URL and returns a formatted URL string.</p>
+<p>Let's see how you can construct your URL string.</p>
+<pre><code class="language-javascript">const url = require("url");
+
+// Creating a URL object with various properties
+const urlObject = {
+  protocol: 'https:',
+  hostname: 'www.dummywebsite.com',
+  pathname: '/mydocument',
+  auth: 'username:password',
+  port: '443',
+};
+
+// Converts a URL object and returns a URL string
+const urlString = url.format(urlObject);
+
+console.log(urlString);</code></pre>
+<p>Here's the output of the code snippet given above:</p>
+<pre><code class="language-bash">https://username:password@www.dummywebsite.com:443/mydocument</code></pre>
+<p>In the example above, an object — <code class="language-javascript">urlObject</code> is defined at first which contains different properties of the URL. This object is passed on to the <code class="language-javascript">url.format()</code> method to convert it into a URL formatted string as you can see in the output above.</p>
+<p>Here's the equivalent code using the newer Node.js API:</p>
+<pre><code class="language-javascript">const url = require("url");
+
+// Creating a URL object with various properties
+const urlObject = new URL("https://www.dummywebsite.com/mydocument");
+urlObject.username = "username";
+urlObject.password = "password";
+
+// Converts a URL object and returns a URL string
+const urlString = urlObject.toString();
+
+console.log(urlString);</code></pre>
+<p>The output for this code snippet is:</p>
+<pre><code class="language-bash">https://username:password@www.dummywebsite.com/mydocument</code></pre>
+<p>In the newer API of Node.js, the <code class="language-javascript">URL</code> class is used instead of the <code class="language-javascript">url</code> module. The <code class="language-javascript">URL</code> class provides a modern and consistent way to work with URLs.</p>
+<h5 id="resolving-urls">Resolving URLs</h5>
+<p>In Node.js, you can use the <code class="language-javascript">url.resolve()</code> method to resolve a URL. This method accepts two URL strings as input and combines them to form a single URL.</p>
+<p>Let's look at an example of a relative URL and a base URL to see how this works:</p>
+<pre><code class="language-javascript">const url = require('url');
+
+const baseUrl = 'https://www.abaseurl.com';
+const relativeUrl = '/find?q=javascript';
+
+// Resolves the two URLs into a single URL
+const resolvedUrl = url.resolve(baseUrl, relativeUrl);
+
+console.log(resolvedUrl);</code></pre>
+<p>The code snippet shown above gives the following output:</p>
+<pre><code class="language-bash">https://www.abaseurl.com/find?q=javascript</code></pre>
+<p>A <em>baseUrl</em> and a <em>relativeUrl</em> are defined as demonstrated in the previous example. The <code class="language-javascript">url.resolve()</code> method combines these URLs into a single URL. In this example, the <code class="language-javascript">url.resolve()</code> accepts two URLs and combines them into a single URL. This method is particularly helpful for dynamically creating URLs in your Node.js application.</p>
+<h5 id="url-constructor">URL constructor</h5>
+<p>The different methods discussed until now were legacy API or deprecated ways to parse and construct the URLs. This means <code class="language-javascript">url.parse()</code>, <code class="language-javascript">url.format()</code>, <code class="language-javascript">url.resolve()</code> are deprecated in the newer versions of Node.js even though they are still widely used and accepted in large applications. However, it is recommended to use the URL constructor to parse the URLs as it is a more modern and consistent API. You can learn more about <a href="https://nodejs.org/api/url.html#legacy-url-api" rel="noopener noreferrer nofollow" target="_blank">legacy URL API</a> and <a href="https://nodejs.org/api/url.html#the-whatwg-url-api" rel="noopener noreferrer nofollow" target="_blank">WHATWG URL API</a> and compare the differences.</p>
+<p>Let's see how you can parse a URL using the URL constructor in the example below:</p>
+<pre><code class="language-javascript">const { URL } = require("url");
+
+// URL constructor
+const firstURL = new URL("https://de.wikipedia.org/wiki/Wikipedia:Hauptseite");
+
+console.log(firstURL);
+
+console.log(typeof firstURL);</code></pre>
+<p>The code snippet gives the following output:</p>
+<pre><code class="language-bash">URL {
+  href: 'https://de.wikipedia.org/wiki/Wikipedia:Hauptseite',
+  origin: 'https://de.wikipedia.org',
+  protocol: 'https:',
+  username: '',
+  password: '',
+  host: 'de.wikipedia.org',
+  hostname: 'de.wikipedia.org',
+  port: '',
+  pathname: '/wiki/Wikipedia:Hauptseite',
+  search: '',
+  searchParams: URLSearchParams {},
+  hash: ''
+}
+object</code></pre>
+<p>As shown in the example, the URL constructor gives the same output as that of the <code class="language-javascript">url.parse</code> method. Also, the URL constructor returns a URL object just like the <code class="language-javascript">url.parse</code> method. You can also specify or manipulate various URL parameters as shown in the following example:</p>
+<pre><code class="language-javascript">const { URL } = require("url");
+
+const firstURL = new URL("https://de.wikipedia.org/wiki/Wikipedia:Hauptseite");
+
+console.log(firstURL.protocol);
+console.log(firstURL.pathname);
+console.log(firstURL.href);
+console.log(firstURL.hostname);</code></pre>
+<p>This piece of code gives the following output:</p>
+<pre><code class="language-bash">https:
+/wiki/Wikipedia:Hauptseite
+https://de.wikipedia.org/wiki/Wikipedia:Hauptseite
+de.wikipedia.org</code></pre>
+<h5 id="conclusion">Conclusion</h5>
+<p>To sum up, let's look at the major points discussed in this topic:</p>
+<ul>
+<li>You learned about <code class="language-javascript">url</code> module and its use cases in Node.js;</li>
+<li>The <code class="language-javascript">url</code> module provides a way to parse, format, and resolve any URLs;</li>
+<li>The <code class="language-javascript">url.parse()</code> method is used to parse a URL string to a URL object;</li>
+<li>Similarly, you can use <code class="language-javascript">url.format()</code> if you want to create your own URL string from an object;</li>
+<li>These are legacy methods and are deprecated in newer versions of Node.js but they are still popular among developers;</li>
+<li>You can use a URL constructor to construct and modify the URLs.</li>
+</ul>
+</div>
