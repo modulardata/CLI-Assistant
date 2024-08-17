@@ -1,0 +1,6 @@
+At this stage, our CLI should provide the following functionality:
+
+When passing the --exist=filename argument, the CLI should provide information about the presence or absence of the file. In the first example, the text of the message is indicated, which should be output to the console with a correct and incorrect file name
+If the argument --create=foldername is passed, then a folder with the name foldername that you passed as a parameter should be created in the project. The functionality that allows you to create folders and subfolders should also be available, then the argument is as follows --create=foldername/subfoldername. Look at the second example.
+If we were able to create folders, then it is logical that we should be able to delete them. Passing the argument --remove=foldername or --remove=foldername/subfoldername should remove folders from the directory, pay attention to the third example
+If you want to delete a file that doesn't exist, then you need to print a special message to the console, as shown in the fourth example.
